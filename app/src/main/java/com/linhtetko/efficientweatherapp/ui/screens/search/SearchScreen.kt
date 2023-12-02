@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -28,6 +30,9 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import com.linhtetko.efficientweatherapp.R
 import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
 import com.linhtetko.efficientweatherapp.ui.components.EfficientAppbar
@@ -45,7 +50,8 @@ import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
-    viewModel: SearchViewModel
+    viewModel: SearchViewModel,
+    onTapNavigate: () -> Unit
 ) {
     SearchScreen(
         modifier = modifier,
@@ -53,7 +59,7 @@ fun SearchScreen(
         keyword = viewModel.keyword,
         onKeywordChange = viewModel::onKeywordChange,
         onTapSearch = viewModel::search,
-        onTapNavigate = {}
+        onTapNavigate = onTapNavigate
     )
 }
 
@@ -162,7 +168,13 @@ fun SearchBar(
                     tint = primaryColor
                 )
             }
-        }
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            capitalization = KeyboardCapitalization.Words,
+            imeAction = ImeAction.Search
+        ),
+        keyboardActions = KeyboardActions(onSearch = { onTapSearch() })
     )
 }
 

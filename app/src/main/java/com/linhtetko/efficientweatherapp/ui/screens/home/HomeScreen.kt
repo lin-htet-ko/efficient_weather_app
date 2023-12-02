@@ -41,8 +41,12 @@ import com.linhtetko.efficientweatherapp.ui.theme.EfficientWeatherAppTheme
 import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel) {
-    HomeScreen(modifier = modifier, state = viewModel.state, onTapSearch = {})
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel, onTapSearch: () -> Unit) {
+
+//    viewModel.getCurrentWeather()
+//    viewModel.getTheNext5DaysWeatherForecast()
+
+    HomeScreen(modifier = modifier, state = viewModel.state, onTapSearch = onTapSearch)
 }
 
 @Composable
@@ -84,8 +88,7 @@ private fun HomeScreenPreview() {
 //b58cabed85c14d8491e142059230112
 @Composable
 private fun HomeAppbar(modifier: Modifier = Modifier, onTapSearch: () -> Unit) {
-    EfficientAppbar(
-        modifier = modifier.fillMaxWidth(),
+    EfficientAppbar(modifier = modifier.fillMaxWidth(),
         title = stringResource(R.string.lbl_app_title),
         actions = {
             IconButton(onClick = onTapSearch) {
@@ -95,17 +98,14 @@ private fun HomeAppbar(modifier: Modifier = Modifier, onTapSearch: () -> Unit) {
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
-        }
-    )
+        })
 }
 
 @EfficientPreview
 @Composable
 private fun HomeAppbarPreview() {
     EfficientWeatherAppTheme(dynamicColor = false) {
-        HomeAppbar(
-            onTapSearch = {}
-        )
+        HomeAppbar(onTapSearch = {})
     }
 }
 
@@ -122,8 +122,7 @@ fun CurrentWeatherSection(
     rain: String
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_2x))
     ) {
         Row(
@@ -133,18 +132,12 @@ fun CurrentWeatherSection(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_2x))) {
                 WeatherGeneralStatus(
-                    isValueRight = true,
-                    windySpeed = windySpeed,
-                    uv = uv,
-                    rain = rain
+                    isValueRight = true, windySpeed = windySpeed, uv = uv, rain = rain
                 )
                 Text(text = date, color = MaterialTheme.colorScheme.onBackground)
             }
             WeatherDescriptiveByCenterAlign(
-                statusIcon = statusIcon,
-                status = status,
-                temp = temp,
-                location = location
+                statusIcon = statusIcon, status = status, temp = temp, location = location
             )
         }
 
@@ -156,14 +149,20 @@ fun CurrentWeatherSection(
 }
 
 @Composable
-fun CurrentWeatherSection(modifier: Modifier = Modifier, state: BaseState<WeatherCardVO>) {
+fun ColumnScope.CurrentWeatherSection(
+    modifier: Modifier = Modifier,
+    state: BaseState<WeatherCardVO>
+) {
 
-    UiStateMapper(state = state,
-        loadingUi = { },
+    UiStateMapper(
+        state = state,
+        loadingUi = {
+            LoadingUi(modifier.weight(1f))
+        },
         errorUi = { },
         contentUi = { weather ->
             CurrentWeatherSection(
-                modifier = modifier,
+                modifier = modifier.fillMaxWidth(),
                 location = weather.location,
                 date = weather.date,
                 temp = weather.temp,
@@ -173,8 +172,7 @@ fun CurrentWeatherSection(modifier: Modifier = Modifier, state: BaseState<Weathe
                 uv = weather.uv,
                 rain = weather.rain
             )
-        }
-    )
+        })
 }
 
 @EfficientPreview
@@ -185,7 +183,9 @@ private fun CurrentWeatherSectionPreview() {
     }
 
     EfficientWeatherAppTheme(dynamicColor = false) {
-        CurrentWeatherSection(state = weather)
+        Column {
+            CurrentWeatherSection(state = weather)
+        }
     }
 }
 
@@ -198,7 +198,6 @@ fun ColumnScope.TheNext5DaysWeatherForecastSection(
         loadingUi = {
             LoadingUi(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .weight(1f)
             )
         },

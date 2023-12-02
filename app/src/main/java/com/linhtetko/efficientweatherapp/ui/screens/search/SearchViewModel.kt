@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseState
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel : BaseViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor() : BaseViewModel() {
 
     var keyword by mutableStateOf("")
 
