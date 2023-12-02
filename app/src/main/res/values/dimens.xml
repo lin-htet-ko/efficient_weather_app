@@ -8,4 +8,5 @@
     <dimen name="size_icon_3x">48dp</dimen>
     <dimen name="size_stroke_general">0.5dp</dimen>
     <dimen name="space_small">4dp</dimen>
+    <dimen name="size_empty">0dp</dimen>
 </resources>

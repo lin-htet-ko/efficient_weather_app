@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import com.linhtetko.efficientweatherapp.R
@@ -30,9 +31,10 @@ fun ErrorMessage(modifier: Modifier = Modifier, message: String) {
     Text(
         text = message,
         modifier = modifier
-            .padding(dimensionResource(id = R.dimen.space_2x))
-            .fillMaxWidth(),
-        color = MaterialTheme.colorScheme.primary
+            .fillMaxWidth()
+            .padding(dimensionResource(id = R.dimen.space_2x)),
+        color = MaterialTheme.colorScheme.primary,
+        textAlign = TextAlign.Center
     )
 }
 

@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -211,7 +213,7 @@ private fun WeatherDescriptiveStatusPreview() {
 }
 
 @Composable
-private fun WeatherPredicateCardHeader(
+fun WeatherPredicateCardHeader(
     modifier: Modifier = Modifier,
     day: String,
     date: String,
@@ -246,5 +248,60 @@ private fun WeatherPredicateCardHeaderPreview() {
 
     EfficientWeatherAppTheme(dynamicColor = false) {
         WeatherPredicateCardHeader(day = weather.day, date = weather.date, time = weather.time)
+    }
+}
+
+@Composable
+fun WeatherDescriptiveByCenterAlign(
+    modifier: Modifier = Modifier,
+    statusIcon: String,
+    status: String,
+    temp: String,
+    location: String? = null
+) {
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_general)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        NetworkImage(
+            url = statusIcon,
+            contentDescription = status,
+            modifier = Modifier.size(dimensionResource(id = R.dimen.size_icon_3x))
+        )
+        Text(
+            text = temp,
+            fontWeight = MaterialTheme.typography.headlineLarge.fontWeight,
+            fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Text(
+            text = status,
+            fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        if (location != null)
+            TextWithIcon(
+                isIconOnRight = false,
+                text = location,
+                icon = Icons.Default.LocationOn,
+            )
+    }
+}
+
+@EfficientPreview
+@Composable
+private fun WeatherDescriptiveByCenterAlignPreview() {
+
+    val weather = WeatherCardVO.dummy
+
+    EfficientWeatherAppTheme(dynamicColor = false) {
+        WeatherDescriptiveByCenterAlign(
+            statusIcon = weather.statusIcon,
+            status = weather.status,
+            temp = weather.temp
+        )
     }
 }

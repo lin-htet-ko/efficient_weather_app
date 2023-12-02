@@ -22,3 +22,8 @@ fun HorizontalSpaceGeneral() {
 fun VerticalSpaceGeneral() {
     Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_general)))
 }
+
+@Composable
+fun VerticalSpace2x() {
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.space_2x)))
+}

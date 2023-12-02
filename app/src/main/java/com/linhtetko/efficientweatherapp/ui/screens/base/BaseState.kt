@@ -14,7 +14,7 @@ data class BaseState<T>(
 
     fun toLoadingState() = copy(isLoading = true, error = "")
 
-    infix fun toErrorState(message: String) = copy(isLoading = false, error = error)
+    infix fun toErrorState(message: String) = copy(isLoading = false, error = message)
 
     infix fun toDataState(data: T) = copy(isLoading = false, error = "", data = data)
 }
