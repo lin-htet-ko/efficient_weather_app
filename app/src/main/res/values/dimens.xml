@@ -4,5 +4,8 @@
     <dimen name="space_2x">16dp</dimen>
     <dimen name="size_icon_small">18dp</dimen>
     <dimen name="size_icon_general">24dp</dimen>
+    <dimen name="size_icon_2x">36dp</dimen>
+    <dimen name="size_icon_3x">48dp</dimen>
     <dimen name="size_stroke_general">0.5dp</dimen>
+    <dimen name="space_small">4dp</dimen>
 </resources>
