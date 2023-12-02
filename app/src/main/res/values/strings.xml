@@ -9,4 +9,6 @@
     <string name="lbl_five_days_forecast">Five Days Forecast</string>
     <string name="lbl_loading">Loading</string>
     <string name="lbl_no_internet_connection">No Internet Connection</string>
+    <string name="lbl_enter_the_city_name">Enter the city name</string>
+    <string name="lbl_search_result">Search Result</string>
 </resources>

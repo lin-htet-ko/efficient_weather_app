@@ -28,7 +28,7 @@ fun EfficientAppbar(
     Row(
         modifier = modifier.padding(dimensionResource(id = R.dimen.space_general)),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Top
+        verticalAlignment = Alignment.CenterVertically
     ) {
         navigationButton()
 

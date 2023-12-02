@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -33,9 +31,8 @@ import com.linhtetko.efficientweatherapp.R
 import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
 import com.linhtetko.efficientweatherapp.ui.components.EfficientAppbar
 import com.linhtetko.efficientweatherapp.ui.components.LoadingUi
-import com.linhtetko.efficientweatherapp.ui.components.NetworkImage
-import com.linhtetko.efficientweatherapp.ui.components.TextWithIcon
 import com.linhtetko.efficientweatherapp.ui.components.VerticalSpaceGeneral
+import com.linhtetko.efficientweatherapp.ui.components.WeatherDescriptiveByCenterAlign
 import com.linhtetko.efficientweatherapp.ui.components.WeatherGeneralStatus
 import com.linhtetko.efficientweatherapp.ui.components.WeatherPredicateCard
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseState
@@ -143,33 +140,12 @@ fun CurrentWeatherSection(
                 )
                 Text(text = date, color = MaterialTheme.colorScheme.onBackground)
             }
-            Column(
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_general)),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                NetworkImage(
-                    url = statusIcon,
-                    contentDescription = status,
-                    modifier = Modifier.size(dimensionResource(id = R.dimen.size_icon_3x))
-                )
-                Text(
-                    text = temp,
-                    fontWeight = MaterialTheme.typography.headlineLarge.fontWeight,
-                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = status,
-                    fontSize = MaterialTheme.typography.headlineMedium.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                TextWithIcon(
-                    isIconOnRight = false,
-                    text = location,
-                    icon = Icons.Default.LocationOn,
-                )
-            }
+            WeatherDescriptiveByCenterAlign(
+                statusIcon = statusIcon,
+                status = status,
+                temp = temp,
+                location = location
+            )
         }
 
         Divider(
