@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "EfficientWeatherApp"
 include(":app")
+include(":network")
