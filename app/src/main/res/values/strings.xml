@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Efficient Weather App</string>
+    <string name="lbl_search">Search</string>
+    <string name="lbl_app_title">Efficient\nWeather App</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_general">8dp</dimen>
+    <dimen name="space_2x">16dp</dimen>
+    <dimen name="size_icon_small">18dp</dimen>
+    <dimen name="size_icon_general">24dp</dimen>
+    <dimen name="size_stroke_general">0.5dp</dimen>
+</resources>
