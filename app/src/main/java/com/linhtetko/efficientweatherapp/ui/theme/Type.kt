@@ -9,9 +9,24 @@ import androidx.compose.ui.unit.sp
 import com.linhtetko.efficientweatherapp.R
 
 private val UrbanistFontFamily = FontFamily(
+    Font(resId = R.font.urbanist_regular, FontWeight.ExtraLight),
     Font(resId = R.font.urbanist_regular, FontWeight.Light),
+    Font(resId = R.font.urbanist_regular, FontWeight.Thin),
+    Font(resId = R.font.urbanist_medium, FontWeight.Normal),
     Font(resId = R.font.urbanist_medium, FontWeight.Medium),
-    Font(resId = R.font.urbanist_bold, FontWeight.Bold)
+    Font(resId = R.font.urbanist_bold, FontWeight.Bold),
+    Font(resId = R.font.urbanist_bold, FontWeight.SemiBold),
+    Font(resId = R.font.urbanist_bold, FontWeight.ExtraBold),
+    Font(resId = R.font.urbanist_bold, FontWeight.Black),
+    Font(resId = R.font.urbanist_regular, FontWeight.W100),
+    Font(resId = R.font.urbanist_regular, FontWeight.W200),
+    Font(resId = R.font.urbanist_regular, FontWeight.W300),
+    Font(resId = R.font.urbanist_medium, FontWeight.W400),
+    Font(resId = R.font.urbanist_medium, FontWeight.W500),
+    Font(resId = R.font.urbanist_bold, FontWeight.W600),
+    Font(resId = R.font.urbanist_bold, FontWeight.W700),
+    Font(resId = R.font.urbanist_bold, FontWeight.W800),
+    Font(resId = R.font.urbanist_bold, FontWeight.W900),
 )
 private val defaultTypography = Typography()
 
