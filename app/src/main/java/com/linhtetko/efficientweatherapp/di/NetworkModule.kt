@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
+    @Singleton
     @Provides
     fun provideApiManager(): ApiManager = ApiModule.apiManager
 }
