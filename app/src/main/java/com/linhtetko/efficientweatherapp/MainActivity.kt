@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,14 +17,17 @@ import com.linhtetko.efficientweatherapp.ui.screens.search.SearchScreen
 import com.linhtetko.efficientweatherapp.ui.screens.search.SearchViewModel
 import com.linhtetko.efficientweatherapp.ui.theme.EfficientWeatherAppTheme
 import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
+import com.linhtetko.network.api.base.ApiManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
 
             val navController = rememberNavController()

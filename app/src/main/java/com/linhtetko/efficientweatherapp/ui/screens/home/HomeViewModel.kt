@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseState
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseViewModel
+import com.linhtetko.network.api.base.ApiManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -15,7 +16,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val apiManager: ApiManager
+) : BaseViewModel() {
 
     private var _currentLocationWeather by mutableStateOf<BaseState<WeatherCardVO>>(BaseState())
     private var _theNext5WeatherForecast by mutableStateOf(BaseState(data = listOf<WeatherCardVO>()))
@@ -32,6 +35,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
     init {
         getCurrentWeather()
         getTheNext5DaysWeatherForecast()
+
+        viewModelScope.launch(Dispatchers.IO){
+            apiManager.getWeatherByCity("Landon")
+        }
     }
 
     fun getCurrentWeather() {
