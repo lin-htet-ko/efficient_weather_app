@@ -3,6 +3,8 @@ package com.linhtetko.efficientweatherapp.ui.screens.home
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,6 +44,7 @@ import com.linhtetko.efficientweatherapp.ui.screens.base.UiStateMapper
 import com.linhtetko.efficientweatherapp.ui.theme.EfficientWeatherAppTheme
 import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
 import com.linhtetko.efficientweatherapp.ui.vos.WeatherUiVO
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(
@@ -238,6 +241,7 @@ private fun CurrentWeatherSectionPreview() {
 fun TheNext5DaysWeatherForecastSection(
     state: BaseState<List<WeatherUiVO>>
 ) {
+
     UiStateMapper(
         state = state,
         loadingUi = {
@@ -266,6 +270,7 @@ fun TheNext5DaysWeatherForecastSection(
                     modifier = Modifier,
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space_general))
                 ) {
+
                     it.forEach { weather ->
                         WeatherPredicateCard(weather = weather)
                     }
