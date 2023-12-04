@@ -11,10 +11,7 @@ internal interface RetrofitWeatherApi {
     @GET(ApiConstant.Route.GET_CITY_WEATHER)
     suspend fun getWeatherByCity(@Query(ApiConstant.Query.CITY) city: String): Response<BaseResponse>
 
-    @GET(ApiConstant.Route.GET_SEARCH_BY_CITY)
-    suspend fun searchWeatherByCity(@Query(ApiConstant.Query.CITY) city: String): Response<BaseResponse>
-
     @GET(ApiConstant.Route.GET_FORECAST_WEATHER)
-    suspend fun getForecastedDayWeather(@Query(ApiConstant.Query.DAY_COUNT) dayCount: Int): Response<BaseResponse>
+    suspend fun getForecastedDayWeather(@Query(ApiConstant.Query.DAY_COUNT) dayCount: Int, @Query(ApiConstant.Query.CITY) city: String): Response<BaseResponse>
 
 }

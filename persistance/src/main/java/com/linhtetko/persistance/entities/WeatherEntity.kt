@@ -12,12 +12,14 @@ data class WeatherEntity(
     val day: String,
     val date: String,
     val time: String,
-    val temp: String,
+    val tempC: Double,
+    val tempF: Double,
     val status: String,
     val statusIcon: String,
-    val windySpeed: String,
-    val uv: String,
-    val rain: String,
+    val windySpeedKph: Double,
+    val windySpeedMph: Double,
+    val uv: Double,
+    val cloud: Int,
     val location: String,
 
     val type: Int

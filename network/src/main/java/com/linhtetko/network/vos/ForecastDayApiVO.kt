@@ -1,58 +1,77 @@
 package com.linhtetko.network.vos
 
+import com.google.gson.annotations.SerializedName
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
-@Serializable
-data class ForecastApiVO(@SerialName("forecastday") val days: List<ForecastDayItemApiVO>? = null)
+data class ForecastApiVO(@SerializedName("forecastday") val days: List<ForecastDayItemApiVO>? = null)
 
-@Serializable
 data class ForecastDayItemApiVO(
     val date: String? = null,
-    @SerialName("date_epoch")
+    @SerializedName("date_epoch")
     val dateEpoch: Long? = null,
-    val day: ForecastDayApiVO? = null
+    val day: ForecastDayApiVO? = null,
+    val astro: AstroApiVO? = null,
+    @SerializedName("hour")
+    val hour: List<WeatherStatusApiVO>? = null
 )
 
-@Serializable
 data class ForecastDayApiVO(
-    @SerialName("maxtemp_c")
+    @SerializedName("maxtemp_c")
     val maxtempC: Double? = null,
-    @SerialName("maxtemp_f")
+    @SerializedName("maxtemp_f")
     val maxtempF: Double? = null,
-    @SerialName("mintemp_c")
+    @SerializedName("mintemp_c")
     val mintempC: Double? = null,
-    @SerialName("mintemp_f")
+    @SerializedName("mintemp_f")
     val mintempF: Double? = null,
-    @SerialName("avgtemp_c")
+    @SerializedName("avgtemp_c")
     val avgtempC: Double? = null,
-    @SerialName("avgtemp_f")
+    @SerializedName("avgtemp_f")
     val avgtempF: Double? = null,
-    @SerialName("maxwind_mph")
+    @SerializedName("maxwind_mph")
     val maxwindMph: Double? = null,
-    @SerialName("maxwind_kph")
+    @SerializedName("maxwind_kph")
     val maxwindKph: Double? = null,
-    @SerialName("totalprecip_mm")
+    @SerializedName("totalprecip_mm")
     val totalprecipMm: Double? = null,
-    @SerialName("totalprecip_in")
+    @SerializedName("totalprecip_in")
     val totalprecipIn: Double? = null,
-    @SerialName("totalsnow_cm")
+    @SerializedName("totalsnow_cm")
     val totalsnowCm: Double? = null,
-    @SerialName("avgvis_km")
+    @SerializedName("avgvis_km")
     val avgvisKm: Double? = null,
-    @SerialName("avgvis_miles")
+    @SerializedName("avgvis_miles")
     val avgvisMiles: Double? = null,
-    @SerialName("avghumidity")
+    @SerializedName("avghumidity")
     val avghumidity: Double? = null,
-    @SerialName("daily_will_it_rain")
+    @SerializedName("daily_will_it_rain")
     val dailyWillItRain: Int? = null,
-    @SerialName("daily_chance_of_rain")
+    @SerializedName("daily_chance_of_rain")
     val dailyChanceOfRain: Int? = null,
-    @SerialName("daily_will_it_snow")
+    @SerializedName("daily_will_it_snow")
     val dailyWillItSnow: Int? = null,
-    @SerialName("daily_chance_of_snow")
+    @SerializedName("daily_chance_of_snow")
     val dailyChanceOfSnow: Int? = null,
-    @SerialName("uv")
-    val uv: Double? = null
+    @SerializedName("uv")
+    val uv: Double? = null,
+    val condition: WeatherConditionApiVO? = null
+)
+
+data class AstroApiVO(
+    @SerializedName("sunrise")
+    val sunrise: String? = null,
+    @SerializedName("sunset")
+    val sunset: String? = null,
+    @SerializedName("moonrise")
+    val moonrise: String? = null,
+    @SerializedName("moonset")
+    val moonset: String? = null,
+    @SerializedName("moon_phase")
+    val moonPhase: String? = null,
+    @SerializedName("moon_illumination")
+    val moonIllumination: Int? = null,
+    @SerializedName("is_moon_up")
+    val isMoonUp: Int? = null,
+    @SerializedName("is_sun_up")
+    val isSunUp: Int? = null
 )

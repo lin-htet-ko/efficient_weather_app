@@ -11,4 +11,9 @@
     <string name="lbl_no_internet_connection">No Internet Connection</string>
     <string name="lbl_enter_the_city_name">Enter the city name</string>
     <string name="lbl_search_result">Search Result</string>
+    <string name="lbl_s_degree_cel">%s °C</string>
+    <string name="lbl_s_kmp">%s kph</string>
+    <string name="lbl_s_percentage">%1$d %%</string>
+    <string name="lbl_cloudy">Cloudy</string>
+    <string name="lbl_clear">Clear</string>
 </resources>

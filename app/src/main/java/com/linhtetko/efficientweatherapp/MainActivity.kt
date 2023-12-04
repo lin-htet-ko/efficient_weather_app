@@ -1,17 +1,25 @@
 package com.linhtetko.efficientweatherapp
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log.d
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.linhtetko.efficientweatherapp.ui.screens.Screen
 import com.linhtetko.efficientweatherapp.ui.screens.home.HomeScreen
 import com.linhtetko.efficientweatherapp.ui.screens.home.HomeViewModel
@@ -19,20 +27,14 @@ import com.linhtetko.efficientweatherapp.ui.screens.search.SearchScreen
 import com.linhtetko.efficientweatherapp.ui.screens.search.SearchViewModel
 import com.linhtetko.efficientweatherapp.ui.theme.EfficientWeatherAppTheme
 import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
-import com.linhtetko.persistance.daos.base.WeatherDao
-import com.linhtetko.persistance.entities.WeatherEntity
-import com.linhtetko.persistance.manager.DatabaseManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var databaseManager: WeatherDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,16 +51,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun EfficientApp(navController: NavHostController) {
+    val city = rememberSaveable {
+        mutableStateOf("Yangon")
+    }
     NavHost(navController = navController, startDestination = Screen.Home.route) {
 
         composable(Screen.Home.route) {
             val viewModel = hiltViewModel<HomeViewModel>()
 
+            LaunchedEffect(key1 = city) {
+                viewModel.getCurrentWeather(city.value)
+                viewModel.getTheNext5DaysWeatherForecast(city.value)
+            }
+
             HomeScreen(
                 viewModel = viewModel,
                 onTapSearch = {
                     navController.navigate(Screen.Search.route)
-                }
+                },
             )
         }
 

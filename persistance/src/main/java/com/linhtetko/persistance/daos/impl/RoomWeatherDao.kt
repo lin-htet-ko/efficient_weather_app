@@ -10,7 +10,7 @@ import com.linhtetko.persistance.databases.Schema
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface RoomWeatherDao: WeatherDao {
+internal interface RoomWeatherDao: WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     override suspend fun insert(weather: WeatherEntity)

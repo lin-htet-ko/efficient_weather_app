@@ -8,7 +8,6 @@ object ApiConstant {
     object Route {
 
         const val GET_CITY_WEATHER = "current.json"
-        const val GET_SEARCH_BY_CITY = "search.json"
         const val GET_FORECAST_WEATHER = "forecast.json"
 
     }

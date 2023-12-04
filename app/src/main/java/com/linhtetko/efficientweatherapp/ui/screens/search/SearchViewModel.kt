@@ -4,34 +4,50 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
+import com.linhtetko.domain.repositories.WeatherRepository
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseState
 import com.linhtetko.efficientweatherapp.ui.screens.base.BaseViewModel
+import com.linhtetko.efficientweatherapp.ui.vos.WeatherUiVO
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor() : BaseViewModel() {
+class SearchViewModel @Inject constructor(
+    private val weatherRepository: WeatherRepository
+) : BaseViewModel() {
 
+    private var cacheKeyword: String = ""
     var keyword by mutableStateOf("")
 
     var state by mutableStateOf(BaseState<SearchScreenState>())
         private set
 
     fun search() {
-        if (keyword.isNotEmpty() && keyword.isNotBlank()) {
+        if (cacheKeyword.isNotEmpty() && cacheKeyword.isNotBlank()) {
             state = state.toLoadingState()
             viewModelScope.launch {
-                delay(500)
-                state = state.toDataState(data = SearchScreenState(WeatherCardVO.dummy))
-//                state = state.toErrorState(message = "'$keyword' City cannot be found")
+                weatherRepository.searchWeatherByCity(
+                    city = cacheKeyword,
+                    onSuccess = {
+                        state = if (it != null)
+                            state.toDataState(data = SearchScreenState(WeatherUiVO.fromDomain(it)))
+                        else
+                            state.toErrorState(message = "'$cacheKeyword' City cannot be found")
+                    },
+                    onFailure = {
+                        state = state.toErrorState(message = "'$cacheKeyword' City cannot be found")
+                    }
+                )
             }
         }
     }
 
     fun onKeywordChange(value: String) {
-        keyword = value
+
+        if (cacheKeyword != value)
+            keyword = value
+
+        cacheKeyword = keyword
     }
 }

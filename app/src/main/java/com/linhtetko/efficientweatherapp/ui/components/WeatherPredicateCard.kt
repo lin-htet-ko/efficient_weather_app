@@ -27,22 +27,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.linhtetko.efficientweatherapp.R
-import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
 import com.linhtetko.efficientweatherapp.ui.theme.EfficientWeatherAppTheme
 import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
+import com.linhtetko.efficientweatherapp.ui.vos.WeatherUiVO
 
 @Composable
-fun WeatherPredicateCard(modifier: Modifier = Modifier, weather: WeatherCardVO) {
+fun WeatherPredicateCard(modifier: Modifier = Modifier, weather: WeatherUiVO) {
     WeatherPredicateCard(
         modifier = modifier,
         day = weather.day,
         date = weather.date,
         time = weather.time,
-        temp = weather.temp,
+        temp = stringResource(id = R.string.lbl_s_degree_cel, weather.tempC),
         status = weather.status,
-        windySpeed = weather.windySpeed,
+        windySpeed = stringResource(id = R.string.lbl_s_kmp, weather.windySpeedKph),
         uv = weather.uv,
-        rain = weather.rain,
+        cloud = stringResource(id = R.string.lbl_s_percentage, weather.cloud),
         statusIcon = weather.statusIcon
     )
 }
@@ -58,14 +58,13 @@ fun WeatherPredicateCard(
     statusIcon: String,
     windySpeed: String,
     uv: String,
-    rain: String
+    cloud: String
 ) {
     val generalPadding = (dimensionResource(id = R.dimen.space_general))
     val space2x = (dimensionResource(id = R.dimen.space_2x))
 
     Card(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(percent = 5),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary.copy(
@@ -76,10 +75,7 @@ fun WeatherPredicateCard(
         WeatherPredicateCardHeader(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(space2x),
-            day = day,
-            date = date,
-            time = time
+                .padding(space2x), day = day, date = date, time = time
         )
         Divider(
             modifier = Modifier.padding(horizontal = space2x),
@@ -94,12 +90,14 @@ fun WeatherPredicateCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
-            WeatherDescriptiveStatus(temp = temp, status = status, statusIcon = statusIcon)
+            WeatherDescriptiveStatus(
+                modifier = Modifier.weight(1f),
+                temp = temp,
+                status = status,
+                statusIcon = statusIcon
+            )
             WeatherGeneralStatus(
-                isValueRight = false,
-                windySpeed = windySpeed,
-                uv = uv,
-                rain = rain
+                isValueRight = false, windySpeed = windySpeed, uv = uv, cloud = cloud
             )
         }
     }
@@ -109,7 +107,7 @@ fun WeatherPredicateCard(
 @Composable
 private fun WeatherPredicateCardPreview() {
     EfficientWeatherAppTheme(dynamicColor = false) {
-        WeatherPredicateCard(weather = WeatherCardVO.dummy)
+        WeatherPredicateCard(weather = WeatherUiVO.dummy)
     }
 }
 
@@ -119,7 +117,7 @@ fun WeatherGeneralStatus(
     isValueRight: Boolean,
     windySpeed: String,
     uv: String,
-    rain: String
+    cloud: String
 ) {
     Column(
         modifier = modifier,
@@ -140,8 +138,8 @@ fun WeatherGeneralStatus(
         )
         ValueTextWithIcon(
             isValueRight = isValueRight,
-            label = stringResource(id = R.string.lbl_rain_mm),
-            value = rain,
+            label = stringResource(id = R.string.lbl_cloudy),
+            value = cloud,
             icon = ImageVector.vectorResource(R.drawable.ic_cloud_rain)
         )
     }
@@ -151,14 +149,14 @@ fun WeatherGeneralStatus(
 @Composable
 private fun WeatherGeneralStatusPreview() {
     val weather by remember {
-        mutableStateOf(WeatherCardVO.dummy)
+        mutableStateOf(WeatherUiVO.dummy)
     }
 
     EfficientWeatherAppTheme(dynamicColor = false) {
         WeatherGeneralStatus(
-            windySpeed = weather.windySpeed,
+            windySpeed = stringResource(id = R.string.lbl_s_kmp, weather.windySpeedKph),
             uv = weather.uv,
-            rain = weather.rain,
+            cloud = stringResource(id = R.string.lbl_s_percentage, weather.cloud),
             isValueRight = true
         )
     }
@@ -166,10 +164,7 @@ private fun WeatherGeneralStatusPreview() {
 
 @Composable
 private fun WeatherDescriptiveStatus(
-    modifier: Modifier = Modifier,
-    temp: String,
-    status: String,
-    statusIcon: String
+    modifier: Modifier = Modifier, temp: String, status: String, statusIcon: String
 ) {
     Column(modifier = modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -189,7 +184,7 @@ private fun WeatherDescriptiveStatus(
         Text(
             text = status,
             fontWeight = FontWeight.Bold,
-            fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
             color = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -200,12 +195,12 @@ private fun WeatherDescriptiveStatus(
 private fun WeatherDescriptiveStatusPreview() {
 
     val weather by remember {
-        mutableStateOf(WeatherCardVO.dummy)
+        mutableStateOf(WeatherUiVO.dummy)
     }
 
     EfficientWeatherAppTheme(dynamicColor = false) {
         WeatherDescriptiveStatus(
-            temp = weather.temp,
+            temp = stringResource(id = R.string.lbl_s_kmp, weather.tempC),
             status = weather.status,
             statusIcon = weather.statusIcon
         )
@@ -214,10 +209,7 @@ private fun WeatherDescriptiveStatusPreview() {
 
 @Composable
 fun WeatherPredicateCardHeader(
-    modifier: Modifier = Modifier,
-    day: String,
-    date: String,
-    time: String
+    modifier: Modifier = Modifier, day: String, date: String, time: String
 ) {
     Row(
         modifier = modifier,
@@ -243,7 +235,7 @@ fun WeatherPredicateCardHeader(
 private fun WeatherPredicateCardHeaderPreview() {
 
     val weather by remember {
-        mutableStateOf(WeatherCardVO.dummy)
+        mutableStateOf(WeatherUiVO.dummy)
     }
 
     EfficientWeatherAppTheme(dynamicColor = false) {
@@ -282,12 +274,11 @@ fun WeatherDescriptiveByCenterAlign(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
-        if (location != null)
-            TextWithIcon(
-                isIconOnRight = false,
-                text = location,
-                icon = Icons.Default.LocationOn,
-            )
+        if (location != null) TextWithIcon(
+            isIconOnRight = false,
+            text = location,
+            icon = Icons.Default.LocationOn,
+        )
     }
 }
 
@@ -295,13 +286,13 @@ fun WeatherDescriptiveByCenterAlign(
 @Composable
 private fun WeatherDescriptiveByCenterAlignPreview() {
 
-    val weather = WeatherCardVO.dummy
+    val weather = WeatherUiVO.dummy
 
     EfficientWeatherAppTheme(dynamicColor = false) {
         WeatherDescriptiveByCenterAlign(
             statusIcon = weather.statusIcon,
             status = weather.status,
-            temp = weather.temp
+            temp = stringResource(id = R.string.lbl_s_kmp, weather.tempC)
         )
     }
 }
