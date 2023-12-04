@@ -5,8 +5,4 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-abstract class BaseViewModel : ViewModel() {
-
-    var error by mutableStateOf("")
-        protected set
-}
+abstract class BaseViewModel : ViewModel()

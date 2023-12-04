@@ -22,10 +22,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalViewConfiguration
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -34,11 +39,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import com.linhtetko.efficientweatherapp.R
-import com.linhtetko.efficientweatherapp.domain.vos.WeatherCardVO
 import com.linhtetko.efficientweatherapp.ui.components.EfficientAppbar
 import com.linhtetko.efficientweatherapp.ui.components.ErrorMessage
 import com.linhtetko.efficientweatherapp.ui.components.LoadingUi
 import com.linhtetko.efficientweatherapp.ui.components.VerticalSpace2x
+import com.linhtetko.efficientweatherapp.ui.components.VerticalSpaceGeneral
 import com.linhtetko.efficientweatherapp.ui.components.WeatherDescriptiveByCenterAlign
 import com.linhtetko.efficientweatherapp.ui.components.WeatherGeneralStatus
 import com.linhtetko.efficientweatherapp.ui.components.WeatherPredicateCardHeader
@@ -46,6 +51,7 @@ import com.linhtetko.efficientweatherapp.ui.screens.base.BaseState
 import com.linhtetko.efficientweatherapp.ui.screens.base.UiStateMapper
 import com.linhtetko.efficientweatherapp.ui.theme.EfficientWeatherAppTheme
 import com.linhtetko.efficientweatherapp.ui.utils.EfficientPreview
+import com.linhtetko.efficientweatherapp.ui.vos.WeatherUiVO
 
 @Composable
 fun SearchScreen(
@@ -53,12 +59,17 @@ fun SearchScreen(
     viewModel: SearchViewModel,
     onTapNavigate: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     SearchScreen(
         modifier = modifier,
         state = viewModel.state,
         keyword = viewModel.keyword,
         onKeywordChange = viewModel::onKeywordChange,
-        onTapSearch = viewModel::search,
+        onTapSearch = {
+            focusManager.clearFocus()
+            viewModel.search()
+        },
         onTapNavigate = onTapNavigate
     )
 }
@@ -123,7 +134,7 @@ fun SearchScreen(
 private fun SearchScreenPreview() {
     EfficientWeatherAppTheme(dynamicColor = false) {
         SearchScreen(
-            state = BaseState(data = SearchScreenState(WeatherCardVO.dummy)),
+            state = BaseState(data = SearchScreenState(WeatherUiVO.dummy)),
             keyword = "",
             onKeywordChange = {},
             onTapSearch = { },
@@ -188,7 +199,7 @@ private fun SearchBarPreview() {
 }
 
 @Composable
-fun ColumnScope.WeatherSearchByCityCard(modifier: Modifier = Modifier, weather: WeatherCardVO) {
+fun ColumnScope.WeatherSearchByCityCard(modifier: Modifier = Modifier, weather: WeatherUiVO) {
     Text(
         modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.space_2x)),
         text = stringResource(R.string.lbl_search_result).uppercase(),
@@ -200,13 +211,14 @@ fun ColumnScope.WeatherSearchByCityCard(modifier: Modifier = Modifier, weather: 
         modifier = modifier,
         statusIcon = weather.statusIcon,
         status = weather.status,
-        temp = weather.temp,
+        temp = stringResource(id = R.string.lbl_s_degree_cel, weather.tempC),
         day = weather.day,
         date = weather.date,
         time = weather.time,
-        windySpeed = weather.windySpeed,
+        windySpeed = stringResource(id = R.string.lbl_s_kmp, weather.windySpeedKph),
         uv = weather.uv,
-        rain = weather.rain
+        cloud = stringResource(id = R.string.lbl_s_percentage, weather.cloud),
+        city = weather.location
     )
 }
 
@@ -221,7 +233,8 @@ private fun WeatherSearchByCityCard(
     time: String,
     windySpeed: String,
     uv: String,
-    rain: String
+    cloud: String,
+    city: String
 ) {
     Column(
         modifier = modifier
@@ -237,6 +250,8 @@ private fun WeatherSearchByCityCard(
             status = status,
             temp = temp
         )
+        VerticalSpaceGeneral()
+        Text(text = city, color = MaterialTheme.colorScheme.onBackground)
         VerticalSpace2x()
         WeatherPredicateCardHeader(
             modifier = Modifier.fillMaxWidth(),
@@ -250,7 +265,7 @@ private fun WeatherSearchByCityCard(
             isValueRight = true,
             windySpeed = windySpeed,
             uv = uv,
-            rain = rain
+            cloud = cloud
         )
     }
 }
@@ -260,7 +275,7 @@ private fun WeatherSearchByCityCard(
 private fun WeatherSearchByCityCardPreview() {
     EfficientWeatherAppTheme(dynamicColor = false) {
         Column {
-            WeatherSearchByCityCard(weather = WeatherCardVO.dummy)
+            WeatherSearchByCityCard(weather = WeatherUiVO.dummy)
         }
     }
 }

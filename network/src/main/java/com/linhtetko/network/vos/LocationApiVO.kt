@@ -1,25 +1,23 @@
 package com.linhtetko.network.vos
 
+import com.google.gson.annotations.SerializedName
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class LocationApiVO(
-    @SerialName("name")
+    @SerializedName("name")
     val name: String? = null,
-    @SerialName("region")
+    @SerializedName("region")
     val region: String? = null,
-    @SerialName("country")
+    @SerializedName("country")
     val country: String? = null,
-    @SerialName("lat")
+    @SerializedName("lat")
     val lat: Double? = null,
-    @SerialName("lon")
+    @SerializedName("lon")
     val lon: Double? = null,
-    @SerialName("tz_id")
+    @SerializedName("tz_id")
     val tzId: String? = null,
-    @SerialName("localtime_epoch")
+    @SerializedName("localtime_epoch")
     val localtimeEpoch: Int? = null,
-    @SerialName("localtime")
+    @SerializedName("localtime")
     val localtime: String? = null
 )

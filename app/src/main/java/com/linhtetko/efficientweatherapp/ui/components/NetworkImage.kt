@@ -18,7 +18,7 @@ fun NetworkImage(
 ) {
     AsyncImage(
         modifier = modifier.background(Color.Transparent),
-        model = url,
+        model = url.prependIndent("https:"),
         contentDescription = contentDescription,
         placeholder = painterResource(id = placeholder),
     )

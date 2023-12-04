@@ -1,18 +1,21 @@
 package com.linhtetko.efficientweatherapp.di
 
-import com.linhtetko.network.api.base.ApiManager
-import com.linhtetko.network.di.ApiModule
+import android.content.Context
+import com.linhtetko.domain.di.DataModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+class DomainModule {
 
     @Singleton
     @Provides
-    fun provideApiManager(): ApiManager = ApiModule.apiManager
+    fun provideDataModule(@ApplicationContext context: Context): DataModule =
+        DataModule(context)
+
 }

@@ -1,65 +1,63 @@
 package com.linhtetko.network.vos
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class WeatherConditionApiVO(
-    @SerialName("text")
+    @SerializedName("text")
     val text: String? = null,
-    @SerialName("icon")
+    @SerializedName("icon")
     val icon: String? = null,
-    @SerialName("code")
+    @SerializedName("code")
     val code: Int? = null
 )
 
-@Serializable
 data class WeatherStatusApiVO(
-    @SerialName("last_updated_epoch")
+    @SerializedName("last_updated_epoch")
     val lastUpdatedEpoch: Long? = null,
-    @SerialName("last_updated")
+    @SerializedName("last_updated")
     val lastUpdated: String? = null,
-    @SerialName("temp_c")
+    val time: String? = null,
+    @SerializedName("temp_c")
     val tempC: Double? = null,
-    @SerialName("temp_f")
+    @SerializedName("temp_f")
     val tempF: Double? = null,
-    @SerialName("is_day")
+    @SerializedName("is_day")
     val isDay: Int? = null,
-    @SerialName("condition")
+    @SerializedName("condition")
     val condition: WeatherConditionApiVO? = null,
-    @SerialName("wind_mph")
+    @SerializedName("wind_mph")
     val windMph: Double? = null,
-    @SerialName("wind_kph")
+    @SerializedName("wind_kph")
     val windKph: Double? = null,
-    @SerialName("wind_degree")
+    @SerializedName("wind_degree")
     val windDegree: Int? = null,
-    @SerialName("wind_dir")
+    @SerializedName("wind_dir")
     val windDir: String? = null,
-    @SerialName("pressure_mb")
+    @SerializedName("pressure_mb")
     val pressureMb: Double? = null,
-    @SerialName("pressure_in")
+    @SerializedName("pressure_in")
     val pressureIn: Double? = null,
-    @SerialName("precip_mm")
+    @SerializedName("precip_mm")
     val precipMm: Double? = null,
-    @SerialName("precip_in")
+    @SerializedName("precip_in")
     val precipIn: Double? = null,
-    @SerialName("humidity")
+    @SerializedName("humidity")
     val humidity: Int? = null,
-    @SerialName("cloud")
+    @SerializedName("cloud")
     val cloud: Int? = null,
-    @SerialName("feelslike_c")
+    @SerializedName("feelslike_c")
     val feelslikeC: Double? = null,
-    @SerialName("feelslike_f")
+    @SerializedName("feelslike_f")
     val feelslikeF: Double? = null,
-    @SerialName("vis_km")
+    @SerializedName("vis_km")
     val visKm: Double? = null,
-    @SerialName("vis_miles")
+    @SerializedName("vis_miles")
     val visMiles: Double? = null,
-    @SerialName("uv")
+    @SerializedName("uv")
     val uv: Double? = null,
-    @SerialName("gust_mph")
+    @SerializedName("gust_mph")
     val gustMph: Double? = null,
-    @SerialName("gust_kph")
+    @SerializedName("gust_kph")
     val gustKph: Double? = null
 )
