@@ -6,6 +6,11 @@
         <entry key="Android Vitals">
           <value>
             <InsightsFilterSettings>
+              <option name="connection">
+                <ConnectionSetting>
+                  <option name="appId" value="com.c2d.aungpwal4us" />
+                </ConnectionSetting>
+              </option>
               <option name="failureTypes">
                 <list>
                   <option value="FATAL" />

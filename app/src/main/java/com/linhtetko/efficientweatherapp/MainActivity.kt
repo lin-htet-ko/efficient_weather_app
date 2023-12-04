@@ -51,18 +51,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun EfficientApp(navController: NavHostController) {
-    val city = rememberSaveable {
-        mutableStateOf("Yangon")
-    }
     NavHost(navController = navController, startDestination = Screen.Home.route) {
 
         composable(Screen.Home.route) {
             val viewModel = hiltViewModel<HomeViewModel>()
-
-            LaunchedEffect(key1 = city) {
-                viewModel.getCurrentWeather(city.value)
-                viewModel.getTheNext5DaysWeatherForecast(city.value)
-            }
 
             HomeScreen(
                 viewModel = viewModel,
