@@ -11,5 +11,5 @@ class DataModule(context: Context) {
 
     val databaseManager: DatabaseManager = LocalModule.getManager(context)
 
-    val apiManager: ApiManager = ApiModule.apiManager
+    val apiManager: WeatherApi = ApiModule.apiManager.weatherApi
 }
