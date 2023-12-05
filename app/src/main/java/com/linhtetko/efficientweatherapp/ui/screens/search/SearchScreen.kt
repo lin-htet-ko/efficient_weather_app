@@ -199,27 +199,29 @@ private fun SearchBarPreview() {
 }
 
 @Composable
-fun ColumnScope.WeatherSearchByCityCard(modifier: Modifier = Modifier, weather: WeatherUiVO) {
-    Text(
-        modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.space_2x)),
-        text = stringResource(R.string.lbl_search_result).uppercase(),
-        fontWeight = FontWeight.Bold,
-        fontSize = MaterialTheme.typography.titleMedium.fontSize,
-        color = MaterialTheme.colorScheme.onBackground
-    )
-    WeatherSearchByCityCard(
-        modifier = modifier,
-        statusIcon = weather.statusIcon,
-        status = weather.status,
-        temp = stringResource(id = R.string.lbl_s_degree_cel, weather.tempC),
-        day = weather.day,
-        date = weather.date,
-        time = weather.time,
-        windySpeed = stringResource(id = R.string.lbl_s_kmp, weather.windySpeedKph),
-        uv = weather.uv,
-        cloud = stringResource(id = R.string.lbl_s_percentage, weather.cloud),
-        city = weather.location
-    )
+fun WeatherSearchByCityCard(modifier: Modifier = Modifier, weather: WeatherUiVO) {
+    Column {
+        Text(
+            modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.space_2x)),
+            text = stringResource(R.string.lbl_search_result).uppercase(),
+            fontWeight = FontWeight.Bold,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        WeatherSearchByCityCard(
+            modifier = modifier,
+            statusIcon = weather.statusIcon,
+            status = weather.status,
+            temp = stringResource(id = R.string.lbl_s_degree_cel, weather.tempC),
+            day = weather.day,
+            date = weather.date,
+            time = weather.time,
+            windySpeed = stringResource(id = R.string.lbl_s_kmp, weather.windySpeedKph),
+            uv = weather.uv,
+            cloud = stringResource(id = R.string.lbl_s_percentage, weather.cloud),
+            city = weather.location
+        )
+    }
 }
 
 @Composable
