@@ -2,4 +2,10 @@
 <resources>
 
     <style name="Theme.EfficientWeatherApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.EfficientWeatherApp.Start" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.EfficientWeatherApp</item>
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
 </resources>
