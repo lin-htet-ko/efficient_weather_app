@@ -1,5 +1,6 @@
 package com.linhtetko.efficientweatherapp.ui.screens.base
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.runtime.Composable
 
 data class BaseState<T>(
@@ -26,9 +27,11 @@ fun <T> UiStateMapper(
     errorUi: @Composable (String) -> Unit,
     contentUi: @Composable (T) -> Unit
 ) {
-    when {
-        state.isLoading -> loadingUi()
-        state.error.isNotBlank() || state.error.isNotEmpty() -> errorUi(state.error)
-        state.data != null -> contentUi(state.data)
+    AnimatedContent(targetState = state, label = "Ui State") {
+        when {
+            it.isLoading -> loadingUi()
+            it.error.isNotBlank() || state.error.isNotEmpty() -> errorUi(state.error)
+            it.data != null -> contentUi(it.data)
+        }
     }
 }
