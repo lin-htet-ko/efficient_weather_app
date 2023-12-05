@@ -4,6 +4,7 @@ import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -75,7 +76,7 @@ fun HomeScreen(
     }
 
     HomeScreen(
-        modifier = modifier,
+        modifier = modifier.animateContentSize(),
         state = viewModel.state,
         onTapSearch = onTapSearch
     )
